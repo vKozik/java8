@@ -4,8 +4,12 @@ import com.grow.java8.streams.data.Child;
 import com.grow.java8.streams.data.Employee;
 import com.grow.java8.streams.data.Person;
 import com.grow.java8.streams.enums.Gender;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Java8 stream API tests")
+@TestInstance(Lifecycle.PER_CLASS)
 class EmployeeReporterTest {
     private EmployeeReporter employeeReporter;
     private ArrayList<Employee> employees;
 
-    {
+    @BeforeAll
+    void init(){
         employees = new ArrayList<>();
 
         Employee employee;
