@@ -1,14 +1,36 @@
 # Java 8 Stream API maven
 
 
-The `StreamAPI` project demonstrates how to use strema API in java8
+The **StreamAPI** project demonstrates how to use strema API in java8
 and tests using Maven. 
 
-comand for run project
-mvn compile exec:java -Dexec.mainClass="com.grow.java8.streams.StreamsMain" -Dexec.args="[Report name]"  
+### Installing
 
-Report names: 
-    All - to select all employees,
+Clone a repository from git
+
+```
+bash-3.2$ git clone https://github.com/vKozik/java8/tree/stream-API
+```
+
+enter the project folder
+```
+bash-3.2$ cd java8
+```
+
+build the app with maven
+```
+bash-3.2$ mvn clean install
+```
+
+### Run
+
+```
+mvn exec:java -Dexec.mainClass="com.grow.java8.streams.StreamsMain" -Dexec.args="[Report name]"  
+```
+
+#Report names: 
+
+    All - to select all employees,         
     AllDepartments - to select all departmens,
     AllMen - to select all men,
     AllWomen - to select all women,
