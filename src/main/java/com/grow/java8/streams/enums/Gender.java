@@ -1,4 +1,4 @@
-package com.grow.myjava8.streams.enums;
+package com.grow.java8.streams.enums;
 
 public enum Gender {
     MALE,

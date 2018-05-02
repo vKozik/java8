@@ -1,4 +1,4 @@
-package com.grow.myjava8.streams.data;
+package com.grow.java8.streams.data;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

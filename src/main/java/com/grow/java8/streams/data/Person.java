@@ -1,8 +1,8 @@
-package com.grow.myjava8.streams.data;
+package com.grow.java8.streams.data;
 
 import java.time.LocalDate;
 
-import com.grow.myjava8.streams.enums.Gender;
+import com.grow.java8.streams.enums.Gender;
 
 public class Person {
     private String firstName;

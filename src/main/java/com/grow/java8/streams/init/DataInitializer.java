@@ -1,4 +1,4 @@
-package com.grow.myjava8.streams.init;
+package com.grow.java8.streams.init;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -8,10 +8,10 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import com.grow.myjava8.streams.data.Child;
-import com.grow.myjava8.streams.data.Employee;
-import com.grow.myjava8.streams.data.Person;
-import com.grow.myjava8.streams.enums.Gender;
+import com.grow.java8.streams.data.Child;
+import com.grow.java8.streams.data.Employee;
+import com.grow.java8.streams.data.Person;
+import com.grow.java8.streams.enums.Gender;
 
 public class DataInitializer {
     final static Random random = new Random();
