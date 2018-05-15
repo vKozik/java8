@@ -1,7 +1,7 @@
-# Java 8 Stream API maven
+# Java Time (Java 8)
 
 
-The **StreamAPI** project demonstrates how to use strema API in java8
+The **Calories** project demonstrates how to use Date and time in java8
 and tests using Maven. 
 
 ### Installing
@@ -9,7 +9,8 @@ and tests using Maven.
 Clone a repository from git
 
 ```
-bash-3.2$ git clone https://github.com/vKozik/java8/tree/stream-API
+bash-3.2$ git clone -b calories https://github.com/vKozik/java8.git
+                                            
 ```
 
 enter the project folder
@@ -25,17 +26,11 @@ bash-3.2$ mvn clean install
 ### Run
 
 ```
-mvn exec:java -Dexec.mainClass="com.grow.java8.streams.StreamsMain" -Dexec.args="[Report name]"  
+mvn compile exec:java -Dexec.mainClass="com.grow.java8.calories.CaloriesMain" -Dexec.args="10000 test.json 2018-02-02 2018-06-04"  
 ```
 
-#Report names: 
-
-    All - to select all employees,         
-    AllDepartments - to select all departmens,
-    AllMen - to select all men,
-    AllWomen - to select all women,
-    AllChildrenYounger16 - to select all children younger 16,
-    TopSalay5 - to select top 5 salay,
-    Statistics - employee statistics,
-    WithChildren - to select employee with children,
-    EmployeeByDepartment - to select departments with employees
+#parameters: 
+ 1. The norm of calories per day
+ 2. JSON file with foods by days
+ 3. Start date interval
+ 4. Finish date interval
