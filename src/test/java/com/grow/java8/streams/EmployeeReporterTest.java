@@ -95,7 +95,6 @@ class EmployeeReporterTest {
         assertEquals(2, result.get(Boolean.FALSE).size());
     }
 
-
     private  static Employee createEmployee(int id, LocalDate birthday, Double salary, String department, Gender gender){
         final Employee employee = new Employee(id, createPerson(id, false, birthday, gender));
         employee.setSalary(salary);
