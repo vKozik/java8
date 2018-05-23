@@ -16,7 +16,6 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDateTime> {
         super(LocalDateTime.class);
     }
 
-
     @Override
     public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {

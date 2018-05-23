@@ -1,17 +1,17 @@
 [
 {
     "name": "food-1", 
-    "calories": "150", 
+    "calories": "1500",
     "dateOfEating": "2018-05-01T10:10:30+01:01"
 },
 {
     "name": "food-2", 
-    "calories": "450", 
+    "calories": "350",
     "dateOfEating": "2018-05-01T10:15:30+01:01"
 },
 {
     "name": "food-3", 
-    "calories": "550", 
+    "calories": "350",
     "dateOfEating": "2018-05-01T10:19:30+01:01"
 },
 {
@@ -41,8 +41,8 @@
 },
 {
     "name": "food-9", 
-    "calories": "2550", 
-    "dateOfEating": "2018-05-03T10:13:30+01:01"
+    "calories": "250",
+    "dateOfEating": "2018-05-03T10:13:20+01:01"
 },
 {
     "name": "food-10", 
@@ -51,8 +51,8 @@
 },
 {
     "name": "food-11", 
-    "calories": "530", 
-    "dateOfEating": "2018-05-04T10:16:30+01:01"
+    "calories": "130",
+    "dateOfEating": "2018-05-04T10:16:35+01:01"
 },
 {
     "name": "food-12", 
@@ -62,11 +62,11 @@
 {
     "name": "food-13", 
     "calories": "450", 
-    "dateOfEating": "2018-05-04T10:19:30+01:01"
+    "dateOfEating": "2018-05-06T10:19:30+01:01"
 },
 {
     "name": "food-14", 
-    "calories": "1550", 
-    "dateOfEating": "2018-05-05T10:20:30+01:01"
+    "calories": "550",
+    "dateOfEating": "2018-05-07T10:20:30+01:01"
 }
 ]
