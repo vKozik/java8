@@ -1,10 +1,9 @@
 package com.grow.java8.calories;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import com.grow.java8.calories.builder.ProcessorBuilder;
-import com.grow.java8.calories.service.impl.FoodServiceImpl;
+import com.grow.java8.calories.dao.impl.FoodDAOJsonImpl;
 import com.grow.java8.calories.validation.ArgsValidator;
 import com.grow.java8.calories.validation.impl.ArgsValidatorImpl;
 
@@ -16,7 +15,7 @@ public class CaloriesMain {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ArgsValidator argsValidator = new ArgsValidatorImpl(DATE_FORMAT);
         if (!argsValidator.validate(args)){
             return;
@@ -25,7 +24,7 @@ public class CaloriesMain {
         Processor processor = new ProcessorBuilder()
                 .addArgs(args)
                 .addDateTimeFormatter(DATE_FORMAT)
-                .addFoodService(new FoodServiceImpl())
+                .addFoodDAO(new FoodDAOJsonImpl(args[1]))
                 .buildProcessor();
 
         logger.info(processor.process());

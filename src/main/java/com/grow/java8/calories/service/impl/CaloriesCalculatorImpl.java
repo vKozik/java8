@@ -13,19 +13,26 @@ import com.grow.java8.calories.converters.FoodStatConverter;
 import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
 import com.grow.java8.calories.service.CaloriesCalculator;
-import com.grow.java8.calories.service.FoodService;
+import com.grow.java8.calories.dao.FoodDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CaloriesCalculatorImpl implements CaloriesCalculator {
     private static Logger logger = LoggerFactory.getLogger(Processor.class);
 
+    private static final String ARGUMENT_ERROR_MESSAGE = "argument %s of checkDailyLimit() are null";
+
     private Double noramaCalories;
-    private FoodService foodService;
+    private FoodDAO foodDAO;
+
+    public CaloriesCalculatorImpl(Double noramaCalories, FoodDAO foodDAO){
+        this.noramaCalories = noramaCalories;
+        this.foodDAO = foodDAO;
+    }
 
     @Override
     public List<Food> getFoods(final LocalDateTime from, final LocalDateTime to) {
-        return foodService.getStream()
+        return foodDAO.getStream()
                 .filter(food -> food.getDateOfEating().isAfter(from) && food.getDateOfEating().isBefore(to))
                 .collect(Collectors.toList());
     }
@@ -33,10 +40,10 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     @Override
     public boolean checkDailyLimit(final LocalDate fromDate, final LocalDate toDate) {
         if (fromDate == null){
-            throw new IllegalArgumentException("argument fromDate of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "fromDate"));
         }
         if (toDate == null){
-            throw new IllegalArgumentException("argument fromDate of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "toDate"));
         }
 
         final LocalDateTime fromDateTime = fromDate.atTime(0,0);
@@ -47,7 +54,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     @Override
     public boolean checkDailyLimit(final LocalDate date){
         if (date == null){
-            throw new IllegalArgumentException("argument checkDailyLimit of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "date"));
         }
 
         final LocalDateTime fromDateTime = date.atTime(0,0);
@@ -58,10 +65,10 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     @Override
     public List<FoodStat> getStatByDays(final LocalDate fromDate, final LocalDate toDate){
         if (fromDate == null){
-            throw new IllegalArgumentException("argument fromDate of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "fromDate"));
         }
         if (toDate == null){
-            throw new IllegalArgumentException("argument fromDate of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "toDate"));
         }
 
         final LocalDateTime fromDateTime = fromDate.atTime(0,0);
@@ -72,7 +79,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     @Override
     public List<FoodStat> getStatByDay(LocalDate date) {
         if (date == null){
-            throw new IllegalArgumentException("argument checkDailyLimit of checkDailyLimit() are null");
+            throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "date"));
         }
 
         final LocalDateTime fromDateTime = date.atTime(0,0);
@@ -81,7 +88,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     }
 
     private List<FoodStat> getStatByDays(final LocalDateTime fromDate, final LocalDateTime toDate){
-        Map<LocalDate, List<Food>> filteredFoods = foodService.getStream()
+        Map<LocalDate, List<Food>> filteredFoods = foodDAO.getStream()
                 .filter(food ->  food.getDateOfEating().isAfter(fromDate)
                         && food.getDateOfEating().isBefore(toDate))
                 .peek(food ->  logger.info("filtered food: " + food))
@@ -92,7 +99,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                 .flatMap(list -> {
                     double caloriesPerDay = list.stream()
                             .map(Food::getCalories)
-                            .peek(food -> logger.info("Calculatin caloriesPerDay"))
+                            .peek(calories -> logger.info("Calculatin caloriesPerDay. Added " + calories))
                             .reduce(0d, (a, b)->a + b);
 
                     return list.stream()
@@ -102,21 +109,22 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     }
 
     private boolean checkLimit(final LocalDateTime fromDate, final LocalDateTime toDate){
-        return foodService.getStream()
+        return foodDAO.getStream()
                 .filter(food ->  food.getDateOfEating().isAfter(fromDate)
                         && food.getDateOfEating().isBefore(toDate))
                 .collect(Collectors.groupingBy(food->food.getDateOfEating().toLocalDate(),
                         HashMap::new, Collectors.summingDouble(Food::getCalories)))
                 .values().stream()
-                .allMatch(c -> c.compareTo(noramaCalories) < 0);
+                .allMatch(c -> Double.compare(c, noramaCalories) < 0);
+
     }
 
-    public FoodService getFoodService() {
-        return foodService;
+    public FoodDAO getFoodDAO() {
+        return foodDAO;
     }
 
-    public void setFoodService(final FoodService foodService) {
-        this.foodService = foodService;
+    public void setFoodDAO(final FoodDAO foodDAO) {
+        this.foodDAO = foodDAO;
     }
 
     public Double getNoramaCalories() {

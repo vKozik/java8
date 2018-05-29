@@ -1,9 +1,10 @@
 package com.grow.java8.calories.validation.impl;
 
-import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import com.grow.java8.calories.validation.ArgsValidator;
 
@@ -15,10 +16,10 @@ import static com.grow.java8.calories.constants.ArgumentConstants.*;
 public class ArgsValidatorImpl implements ArgsValidator {
     private static Logger logger = LoggerFactory.getLogger(ArgsValidatorImpl.class);
 
-    private static String MESSAGE_ERROR_NORMS = "Error parsing norms of calories per day ";
-    private static String MESSAGE_FILE_NOT_FOUND = "Input file not found: ";
-    private static String MESSAGE_ERROR_START_DATE = "Error parsing Start date: ";
-    private static String MESSAGE_ERROR_FINISH_DATE = "Error parsing Finish date: ";
+    private static final String MESSAGE_ERROR_NORMS = "Error parsing norms of calories per day ";
+    private static final String MESSAGE_FILE_NOT_FOUND = "Input file not found: ";
+    private static final String MESSAGE_ERROR_START_DATE = "Error parsing Start date: ";
+    private static final String MESSAGE_ERROR_FINISH_DATE = "Error parsing Finish date: ";
 
     private DateTimeFormatter dateTimeFormatter;
 
@@ -32,9 +33,8 @@ public class ArgsValidatorImpl implements ArgsValidator {
         if (validateDouble(args[NORMS_INDEX], MESSAGE_ERROR_NORMS + args[NORMS_INDEX])) return false;
         if (validateFile(args[FILE_NAME_INDEX], MESSAGE_FILE_NOT_FOUND + args[FILE_NAME_INDEX])) return false;
         if (validateDate(args[FROM_DATE_INDEX], MESSAGE_ERROR_START_DATE + args[FROM_DATE_INDEX])) return false;
-        if (validateDate(args[TO_DATE_INDEX], MESSAGE_ERROR_FINISH_DATE + args[TO_DATE_INDEX])) return false;
 
-        return true;
+        return !validateDate(args[TO_DATE_INDEX], MESSAGE_ERROR_FINISH_DATE + args[TO_DATE_INDEX]);
     }
 
     private boolean validateCountArgs(final String[] args){
@@ -68,8 +68,8 @@ public class ArgsValidatorImpl implements ArgsValidator {
     }
 
     private boolean validateFile(final String fileName, final String message) {
-        File file = new File(fileName);
-        if (file.exists()){
+        Optional<URL> urlFile = Optional.ofNullable(this.getClass().getClassLoader().getResource(fileName));
+        if (urlFile.isPresent()){
             return false;
         }
 

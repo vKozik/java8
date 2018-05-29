@@ -7,7 +7,7 @@ import com.grow.java8.calories.builder.CaloriesCalculatorBuilder;
 import com.grow.java8.calories.data.Attributes;
 import com.grow.java8.calories.data.FoodStat;
 import com.grow.java8.calories.service.CaloriesCalculator;
-import com.grow.java8.calories.service.FoodService;
+import com.grow.java8.calories.dao.FoodDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,16 +19,15 @@ public class Processor {
     private static final String CALORIES_EXCEEDED = "The number of calories exceeded";
 
     private Attributes attributes;
-    private FoodService foodService;
+    private FoodDAO foodDAO;
 
     public void setArguments(final String[] args){
         attributes = ArgumentParser.parse(args, timeFormatter);
-        foodService.read(attributes.getFileName());
     }
 
     public String process(){
         CaloriesCalculator caloriesCalculator = new CaloriesCalculatorBuilder()
-                .addFoodService(foodService)
+                .addFoodDAO(foodDAO)
                 .addNoramaCalories(attributes.getNoramaCalories())
                 .build();
 
@@ -43,12 +42,12 @@ public class Processor {
         return caloriesCalculator.checkDailyLimit(attributes.getFromDate(), attributes.getToDate()) ? CALORIES_NORMAL : CALORIES_EXCEEDED;
     }
 
-    public FoodService getFoodService() {
-        return foodService;
+    public FoodDAO getFoodDAO() {
+        return foodDAO;
     }
 
-    public void setFoodService(final FoodService foodService) {
-        this.foodService = foodService;
+    public void setFoodDAO(final FoodDAO foodDAO) {
+        this.foodDAO = foodDAO;
     }
 
     public DateTimeFormatter getTimeFormatter() {

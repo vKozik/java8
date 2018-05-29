@@ -1,15 +1,15 @@
 package com.grow.java8.calories.builder;
 
 import com.grow.java8.calories.service.CaloriesCalculator;
-import com.grow.java8.calories.service.FoodService;
+import com.grow.java8.calories.dao.FoodDAO;
 import com.grow.java8.calories.service.impl.CaloriesCalculatorImpl;
 
 public class CaloriesCalculatorBuilder {
-    private FoodService foodService;
+    private FoodDAO foodDAO;
     private Double noramaCalories;
 
-    public CaloriesCalculatorBuilder addFoodService(final FoodService foodService){
-        this.foodService = foodService;
+    public CaloriesCalculatorBuilder addFoodDAO(final FoodDAO foodDAO){
+        this.foodDAO = foodDAO;
         return this;
     }
 
@@ -19,9 +19,6 @@ public class CaloriesCalculatorBuilder {
     }
 
     public CaloriesCalculator build(){
-        CaloriesCalculatorImpl result = new CaloriesCalculatorImpl();
-        result.setFoodService(foodService);
-        result.setNoramaCalories(noramaCalories);
-        return result ;
+        return new CaloriesCalculatorImpl(noramaCalories, foodDAO);
     }
 }

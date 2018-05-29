@@ -3,13 +3,12 @@ package com.grow.java8.calories.builder;
 import java.time.format.DateTimeFormatter;
 
 import com.grow.java8.calories.Processor;
-import com.grow.java8.calories.service.FoodService;
-import com.grow.java8.calories.service.impl.FoodServiceImpl;
+import com.grow.java8.calories.dao.FoodDAO;
 
 public class ProcessorBuilder {
     private String[] args;
     private DateTimeFormatter dateTimeFormatter;
-    private FoodService foodService;
+    private FoodDAO foodDAO;
 
     public ProcessorBuilder addArgs(final String[] args){
         this.args = args;
@@ -21,14 +20,14 @@ public class ProcessorBuilder {
         return this;
     }
 
-    public ProcessorBuilder addFoodService(final FoodService foodService){
-        this.foodService = foodService;
+    public ProcessorBuilder addFoodDAO(final FoodDAO foodDAO){
+        this.foodDAO = foodDAO;
         return this;
     }
 
     public Processor buildProcessor(){
         Processor processor = new Processor();
-        processor.setFoodService(foodService != null ? foodService : new FoodServiceImpl());
+        processor.setFoodDAO(foodDAO);
         processor.setArguments(args);
         processor.setTimeFormatter(dateTimeFormatter);
         return processor;

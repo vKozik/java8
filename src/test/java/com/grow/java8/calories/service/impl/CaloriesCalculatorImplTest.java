@@ -1,11 +1,13 @@
 package com.grow.java8.calories.service.impl;
 
+import com.grow.java8.calories.dao.impl.FoodDAOJsonImpl;
 import com.grow.java8.calories.data.FoodStat;
-import com.grow.java8.calories.service.FoodService;
+import com.grow.java8.calories.dao.FoodDAO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,12 +24,9 @@ class CaloriesCalculatorImplTest {
 
     @BeforeAll
     static private void init() throws IOException {
-        FoodService foodService = new FoodServiceImpl();
-        foodService.read("src/test/resources/test.json");
+        FoodDAO foodDAO = new FoodDAOJsonImpl("test.json");
 
-        caloriesCalculator = new CaloriesCalculatorImpl();
-        ((CaloriesCalculatorImpl) caloriesCalculator).setNoramaCalories(1000d);
-        ((CaloriesCalculatorImpl) caloriesCalculator).setFoodService(foodService);
+        caloriesCalculator = new CaloriesCalculatorImpl(1000d, foodDAO);
     }
 
     @Test
@@ -92,7 +91,7 @@ class CaloriesCalculatorImplTest {
 
     @Test
     void shouldThrowIllegalArgumentException() {
-        LocalDate date = LocalDate.of(2018,01, 02);
+        LocalDate date = LocalDate.of(2018,01, 2);
 
         assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(date, null));
         assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(null, date));
