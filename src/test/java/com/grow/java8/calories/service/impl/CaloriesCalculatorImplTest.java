@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +24,6 @@ class CaloriesCalculatorImplTest {
     @BeforeAll
     static private void init() throws IOException {
         FoodDAO foodDAO = new FoodDAOJsonImpl("test.json");
-
         caloriesCalculator = new CaloriesCalculatorImpl(1000d, foodDAO);
     }
 

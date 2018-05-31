@@ -4,10 +4,6 @@ import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
 
 public class FoodStatConverter {
-    private FoodStatConverter() {
-        throw new IllegalStateException("Utility class");
-    }
-    
     public static FoodStat getFoodStat(final Food food, final double caloriesPerDay){
         FoodStat foodStat = new FoodStat();
         foodStat.setCalories(food.getCalories());

@@ -1,15 +1,16 @@
 package com.grow.java8.calories.validation.impl;
 
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
 
 import com.grow.java8.calories.validation.ArgsValidator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 import static com.grow.java8.calories.constants.ArgumentConstants.*;
 
@@ -68,13 +69,13 @@ public class ArgsValidatorImpl implements ArgsValidator {
     }
 
     private boolean validateFile(final String fileName, final String message) {
-        Optional<URL> urlFile = Optional.ofNullable(this.getClass().getClassLoader().getResource(fileName));
-        if (urlFile.isPresent()){
+        try {
+            File file = new ClassPathResource(fileName).getFile();
             return false;
+        } catch (IOException e) {
+            logger.error(message);
+            return true;
         }
-
-        logger.error(message);
-        return true;
     }
 
     private boolean validateDate(final String date, final String message) {

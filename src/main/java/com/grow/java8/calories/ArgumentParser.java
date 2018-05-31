@@ -8,21 +8,13 @@ import com.grow.java8.calories.data.Attributes;
 import static com.grow.java8.calories.constants.ArgumentConstants.*;
 
 public class ArgumentParser {
-    private ArgumentParser() {
-        throw new IllegalStateException("Utility class");
-    }
-
     public static Attributes parse(final String[] args, final DateTimeFormatter dateFormatter){
         Attributes result = new Attributes();
         result.setNoramaCalories(Double.valueOf(args[NORMS_INDEX]));
         result.setFileName(args[FILE_NAME_INDEX]);
-        result.setFromDate(stringToLocalDate(args[FROM_DATE_INDEX], dateFormatter));
-        result.setToDate(stringToLocalDate(args[TO_DATE_INDEX], dateFormatter));
+        result.setFromDate(LocalDate.parse(args[FROM_DATE_INDEX], dateFormatter));
+        result.setToDate(LocalDate.parse(args[TO_DATE_INDEX], dateFormatter));
 
         return result;
-    }
-
-    private static LocalDate stringToLocalDate(final String date, final DateTimeFormatter dateFormatter){
-        return LocalDate.parse(date, dateFormatter);
     }
 }
