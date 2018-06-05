@@ -16,19 +16,21 @@ import com.grow.java8.calories.service.CaloriesCalculator;
 import com.grow.java8.calories.dao.FoodDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CaloriesCalculatorImpl implements CaloriesCalculator {
     private static Logger logger = LoggerFactory.getLogger(Processor.class);
 
     private static final String ARGUMENT_ERROR_MESSAGE = "argument %s of checkDailyLimit() are null";
 
+    @Value("${norama.Calories}")
     private Double noramaCalories;
-    private FoodDAO foodDAO;
 
-    public CaloriesCalculatorImpl(Double noramaCalories, FoodDAO foodDAO){
-        this.noramaCalories = noramaCalories;
-        this.foodDAO = foodDAO;
-    }
+    @Autowired
+    private FoodDAO foodDAO;
 
     @Override
     public List<Food> getFoods(final LocalDateTime from, final LocalDateTime to) {
@@ -77,7 +79,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     }
 
     @Override
-    public List<FoodStat> getStatByDay(LocalDate date) {
+    public List<FoodStat> getStatByDay(final LocalDate date) {
         if (date == null){
             throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "date"));
         }
@@ -134,4 +136,6 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     public void setNoramaCalories(final Double noramaCalories) {
         this.noramaCalories = noramaCalories;
     }
+
+
 }

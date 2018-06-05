@@ -10,8 +10,6 @@ import static com.grow.java8.calories.constants.ArgumentConstants.*;
 public class ArgumentParser {
     public static Attributes parse(final String[] args, final DateTimeFormatter dateFormatter){
         Attributes result = new Attributes();
-        result.setNoramaCalories(Double.valueOf(args[NORMS_INDEX]));
-        result.setFileName(args[FILE_NAME_INDEX]);
         result.setFromDate(LocalDate.parse(args[FROM_DATE_INDEX], dateFormatter));
         result.setToDate(LocalDate.parse(args[TO_DATE_INDEX], dateFormatter));
 

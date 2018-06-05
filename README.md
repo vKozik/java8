@@ -26,11 +26,9 @@ bash-3.2$ mvn clean install
 ### Run
 
 ```
-mvn compile exec:java -Dexec.mainClass="com.grow.java8.caloriesCalculator.CaloriesMain" -Dexec.args="10000 test.json 2018-02-02 2018-06-04"  
+mvn compile exec:java -Dexec.mainClass="com.grow.java8.caloriesCalculator.CaloriesMain" -Dexec.args=2018-02-02 2018-06-04"  
 ```
 
 #parameters: 
- 1. The norms of calories Calculator per day
- 2. JSON file with foods by days
- 3. Start date interval
- 4. Finish date interval
+ 1. Start date interval
+ 2. Finish date interval

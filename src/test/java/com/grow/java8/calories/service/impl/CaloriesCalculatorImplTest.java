@@ -23,8 +23,8 @@ class CaloriesCalculatorImplTest {
 
     @BeforeAll
     static private void init() throws IOException {
-        FoodDAO foodDAO = new FoodDAOJsonImpl("test.json");
-        caloriesCalculator = new CaloriesCalculatorImpl(1000d, foodDAO);
+//        FoodDAO foodDAO = new FoodDAOJsonImpl();
+//        caloriesCalculator = new CaloriesCalculatorImpl();
     }
 
     @Test

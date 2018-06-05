@@ -13,15 +13,15 @@ import com.grow.java8.calories.dao.FoodDAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class FoodDAOJsonImpl implements FoodDAO {
     private static Logger logger = LoggerFactory.getLogger(FoodDAOJsonImpl.class);
+    @Value("${file.name}")
     private String fileName;
-
-    public FoodDAOJsonImpl(String fileName) {
-        this.fileName = fileName;
-    }
 
     private List<Food> read() {
         try (FileInputStream inFile = new FileInputStream(new ClassPathResource(fileName).getFile())){
