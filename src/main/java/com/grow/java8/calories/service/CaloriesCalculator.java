@@ -8,9 +8,8 @@ import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
 
 public interface CaloriesCalculator {
-    List<Food> getFoods(LocalDateTime from, LocalDateTime to);
-    boolean checkDailyLimit(LocalDate fromDate, LocalDate toDate);
-    boolean checkDailyLimit(LocalDate date);
+    boolean checkDailyLimit(LocalDate fromDate, LocalDate toDate, Double noramaCalories);
+    boolean checkDailyLimit(LocalDate date, Double noramaCalories);
 
     List<FoodStat> getStatByDays(LocalDate fromDate, LocalDate toDate);
     List<FoodStat> getStatByDay(LocalDate date);

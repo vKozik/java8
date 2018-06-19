@@ -23,14 +23,10 @@ public class Processor {
 
     @Value("${dateTimeFormat.patern}")
     private String dateFormat;
-    @Value("${norama.Calories}")
-    private Double noramaCalories;
-
-
+    
     @Autowired
     CaloriesCalculator caloriesCalculator;
-
-
+    
     public void setArguments(final String[] args){
         attributes = ArgumentParser.parse(args, DateTimeFormatter.ofPattern(dateFormat));
     }
@@ -41,9 +37,10 @@ public class Processor {
         logger.info("Result: ");
         statList.stream()
                 .map(foodStat -> foodStat.toString()
-                        + (foodStat.getCaloriesPerDay() > noramaCalories ? " - exceeded!" : "") )
+                        + (foodStat.getCaloriesPerDay() > attributes.getNoramaCalories() ? " - exceeded!" : "") )
                 .forEach(line -> logger.info(line));
 
-        return caloriesCalculator.checkDailyLimit(attributes.getFromDate(), attributes.getToDate()) ? CALORIES_NORMAL : CALORIES_EXCEEDED;
+        return caloriesCalculator.checkDailyLimit(attributes.getFromDate(), attributes.getToDate(),
+                attributes.getNoramaCalories()) ? CALORIES_NORMAL : CALORIES_EXCEEDED;
     }
 }

@@ -9,13 +9,13 @@ and tests using Maven.
 Clone a repository from git
 
 ```
-bash-3.2$ git clone -b caloriesCalculator https://github.com/vKozik/java8.git
+bash-3.2$ git clone -b calories https://github.com/vKozik/java8.git calories
                                             
 ```
 
 enter the project folder
 ```
-bash-3.2$ cd java8
+bash-3.2$ cd calories
 ```
 
 build the app with maven
@@ -26,9 +26,10 @@ bash-3.2$ mvn clean install
 ### Run
 
 ```
-mvn compile exec:java -Dexec.mainClass="com.grow.java8.caloriesCalculator.CaloriesMain" -Dexec.args=2018-02-02 2018-06-04"  
+java -jar target/Calories-0.0.1-SNAPSHOT.jar 2018-02-02 2018-06-04 100
 ```
 
 #parameters: 
  1. Start date interval
  2. Finish date interval
+ 3. The norm of calories per day

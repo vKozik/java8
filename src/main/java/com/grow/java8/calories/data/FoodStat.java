@@ -3,6 +3,10 @@ package com.grow.java8.calories.data;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
+
 public class FoodStat {
     private String name;
     private double calories;
@@ -11,12 +15,7 @@ public class FoodStat {
 
     @Override
     public String toString() {
-        return "Food{" +
-                "name='" + name + '\'' +
-                ", calories=" + calories +
-                ", dateOfEating=" + dateOfEating +
-                ", caloriesPerDay=" + caloriesPerDay +
-                '}';
+        return ToStringBuilder.reflectionToString(this, JSON_STYLE);
     }
 
     public String getName() {
@@ -64,7 +63,6 @@ public class FoodStat {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(name, calories, dateOfEating, caloriesPerDay);
     }
 }

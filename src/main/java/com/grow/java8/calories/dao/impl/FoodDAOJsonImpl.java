@@ -2,6 +2,7 @@ package com.grow.java8.calories.dao.impl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -13,8 +14,10 @@ import com.grow.java8.calories.dao.FoodDAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,10 +26,14 @@ public class FoodDAOJsonImpl implements FoodDAO {
     @Value("${file.name}")
     private String fileName;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     private List<Food> read() {
-        try (FileInputStream inFile = new FileInputStream(new ClassPathResource(fileName).getFile())){
+        Resource resource = resourceLoader.getResource(fileName);
+        try(InputStream inputStream = resource.getInputStream()) {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(inFile, new TypeReference<List<Food>>(){});
+            return objectMapper.readValue(inputStream, new TypeReference<List<Food>>(){});
         } catch (IOException ex) {
             logger.error("Error reading file! ", ex);
             return Collections.emptyList();

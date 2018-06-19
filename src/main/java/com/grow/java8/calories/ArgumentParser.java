@@ -12,7 +12,7 @@ public class ArgumentParser {
         Attributes result = new Attributes();
         result.setFromDate(LocalDate.parse(args[FROM_DATE_INDEX], dateFormatter));
         result.setToDate(LocalDate.parse(args[TO_DATE_INDEX], dateFormatter));
-
+        result.setNoramaCalories(Double.valueOf(args[NORAMA_INDEX]));
         return result;
     }
 }
