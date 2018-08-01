@@ -6,6 +6,8 @@ import java.util.Objects;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
@@ -45,19 +47,14 @@ public class Food {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, JSON_STYLE);
     }
-
+    
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Food food = (Food) o;
-        return Double.compare(food.calories, calories) == 0 &&
-                Objects.equals(name, food.name) &&
-                Objects.equals(dateOfEating, food.dateOfEating);
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
-
+    
     @Override
     public int hashCode() {
-        return Objects.hash(name, calories, dateOfEating);
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

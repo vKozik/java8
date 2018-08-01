@@ -1,8 +1,9 @@
 package com.grow.java8.calories.data;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
@@ -51,18 +52,12 @@ public class FoodStat {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FoodStat foodStat = (FoodStat) o;
-        return Double.compare(foodStat.calories, calories) == 0 &&
-                Double.compare(foodStat.caloriesPerDay, caloriesPerDay) == 0 &&
-                Objects.equals(name, foodStat.name) &&
-                Objects.equals(dateOfEating, foodStat.dateOfEating);
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, calories, dateOfEating, caloriesPerDay);
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

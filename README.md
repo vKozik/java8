@@ -22,19 +22,28 @@ build the app with maven
 ```
 mvn clean install
 ```
-
 ### Run
+
+```
+java -jar target/Calories-0.0.1-SNAPSHOT.war
+```
+
+### Run with docker
 
 ```
 docker build -t calories-app .
 
-docker run -p 8087:8082 -t calories-app
+docker run -p 8082:8082 -t calories-app
 ```
+
+### Web page
+
+http://localhost:8082/stat
 
 ### Request examples
 
-http://localhost:8087/api/test
-http://localhost:8087/api/stat?fromDate=2018-05-02&toDate=2018-05-05
-http://localhost:8087/api/checkLimit?norm=1200&fromDate=2018-05-02&toDate=2018-05-05
+http://localhost:8082/api/test
+http://localhost:8082/api/stat?fromDate=2018-05-02&toDate=2018-05-05
+http://localhost:8082/api/checkLimit?norm=1200&fromDate=2018-05-02&toDate=2018-05-05
 
 
