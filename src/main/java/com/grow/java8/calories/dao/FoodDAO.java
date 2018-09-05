@@ -6,4 +6,8 @@ import com.grow.java8.calories.data.Food;
 
 public interface FoodDAO {
     Stream<Food> getStream();
+
+    Food getFood(Long id);
+
+    Food setFood(Food food);
 }

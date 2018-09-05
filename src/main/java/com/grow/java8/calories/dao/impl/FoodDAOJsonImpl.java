@@ -15,13 +15,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
+@Profile("json")
 public class FoodDAOJsonImpl implements FoodDAO {
     private static Logger logger = LoggerFactory.getLogger(FoodDAOJsonImpl.class);
+
     @Value("${file.name}")
     private String fileName;
 
@@ -42,5 +45,15 @@ public class FoodDAOJsonImpl implements FoodDAO {
     @Override
     public Stream<Food> getStream(){
         return read().stream();
+    }
+
+    @Override
+    public Food getFood(Long id) {
+        return null;
+    }
+
+    @Override
+    public Food setFood(Food food) {
+        return null;
     }
 }
