@@ -51,6 +51,7 @@ public class CaloriesController {
         model.addAttribute("foodStats", foodStats);
         model.addAttribute("fromDate", fromDate);
         model.addAttribute("toDate", toDate);
+        model.addAttribute("isReadOnly", isReadOnly());
         
         return "stat";
     }
@@ -58,13 +59,16 @@ public class CaloriesController {
 
     @GetMapping("/foods")
     public String getAllFoods(Model model) {
-        String[] activeProfiles = environment.getActiveProfiles();
-
         final List<Food> foods = foodService.getAll();
         model.addAttribute("foods", foods);
-        model.addAttribute("isReadOnly", READ_ONLY_PROFILE.equals(activeProfiles[0]));
+        model.addAttribute("isReadOnly", isReadOnly());
 
         return "foods";
+    }
+    
+    private boolean isReadOnly(){
+        String[] activeProfiles = environment.getActiveProfiles();
+        return READ_ONLY_PROFILE.equals(activeProfiles[0]);
     }
 
 }

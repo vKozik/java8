@@ -6,6 +6,7 @@ import com.grow.java8.calories.data.FoodStat;
 public class FoodStatConverter {
     public static FoodStat getFoodStat(final Food food, final double caloriesPerDay){
         FoodStat foodStat = new FoodStat();
+        foodStat.setId(food.getId());
         foodStat.setCalories(food.getCalories());
         foodStat.setDateOfEating(food.getDateOfEating());
         foodStat.setName(food.getName());

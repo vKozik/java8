@@ -10,4 +10,6 @@ public interface FoodDAO {
     Food getFood(Long id);
 
     Food setFood(Food food);
+
+    void removeFood(Food food);
 }

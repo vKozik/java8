@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
 
 public class FoodStat {
+    private Long id;
     private String name;
     private double calories;
     private LocalDateTime dateOfEating ;
@@ -18,7 +19,15 @@ public class FoodStat {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, JSON_STYLE);
     }
-
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(final Long id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }

@@ -6,3 +6,5 @@ create table Food
    DATE_OF_EATING TIMESTAMP,
    primary key(id)
 );
+
+create sequence Food_seq START WITH 10100;

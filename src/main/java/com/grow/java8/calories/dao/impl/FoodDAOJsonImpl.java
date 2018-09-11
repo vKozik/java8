@@ -32,9 +32,9 @@ public class FoodDAOJsonImpl implements FoodDAO {
     private ResourceLoader resourceLoader;
 
     private List<Food> read() {
-        Resource resource = resourceLoader.getResource(fileName);
+        final Resource resource = resourceLoader.getResource(fileName);
         try(InputStream inputStream = resource.getInputStream()) {
-            ObjectMapper objectMapper = new ObjectMapper();
+            final ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(inputStream, new TypeReference<List<Food>>(){});
         } catch (IOException ex) {
             logger.error("Error reading file! ", ex);
@@ -56,4 +56,10 @@ public class FoodDAOJsonImpl implements FoodDAO {
     public Food setFood(Food food) {
         return null;
     }
+
+    @Override
+    public void removeFood(Food food){
+
+    }
+
 }

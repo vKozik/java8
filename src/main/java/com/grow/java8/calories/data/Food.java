@@ -22,7 +22,8 @@ public class Food {
     private LocalDateTime dateOfEating ;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name="SEQUENCE_GENERATOR",sequenceName="Food_seq", allocationSize=10)
     public Long getId() {
         return id;
     }

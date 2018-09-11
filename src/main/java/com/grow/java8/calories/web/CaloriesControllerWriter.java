@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -28,7 +28,7 @@ public class CaloriesControllerWriter {
         
         return "foodEdit";
     }
-
+    
     @GetMapping("/foods/update/{id}")
     public String updateFood(@PathVariable(value = "id") Long id, Model model) {
         final List<Food> foods = foodService.getAll();
@@ -36,6 +36,7 @@ public class CaloriesControllerWriter {
     
         model.addAttribute("pageHeader", "Update new ");
         if (food != null) {
+            model.addAttribute("foodId", food.getId());
             model.addAttribute("foodName", food.getName());
             model.addAttribute("foodDate", food.getDateOfEating());
             model.addAttribute("foodCalories", food.getCalories());
@@ -45,20 +46,19 @@ public class CaloriesControllerWriter {
     }
 
     @PostMapping("/foods/update")
-    public String saveFood(@RequestParam String foodName,
-            @RequestParam String foodDate,
-            @RequestParam Double foodCalories,
-            Model model) {
-        final List<Food> foods = foodService.getAll();
-
-        return "/foods";
+    public String saveFood(@RequestParam Long foodId,
+            @RequestParam String foodName,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime foodDate,
+            @RequestParam Double foodCalories) {
+        foodService.setFood(foodId, foodName, foodDate, foodCalories);
+        
+        return "redirect:/foods" ;
     }
 
-    @PostMapping("/foods/delete")
-    public String deleteFood(Model model) {
-        final List<Food> foods = foodService.getAll();
-        model.addAttribute("foods", foods);
+    @GetMapping("/foods/delete/{id}")
+    public String deleteFood(@PathVariable(value = "id") Long id) {
+        foodService.removeFood(id);
 
-        return "/foods";
+        return "redirect:/foods" ;
     }
 }

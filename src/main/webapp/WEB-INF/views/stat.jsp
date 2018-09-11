@@ -55,6 +55,9 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <c:if test="${!isReadOnly}">
+           <th>Id</th>
+        </c:if>
         <th>food</th>
         <th>Date</th>
         <th>calories</th>
@@ -66,6 +69,11 @@
     <tbody>
       <c:forEach items="${foodStats}" var="foodStat">
         <tr <c:if test="${foodStat.caloriesPerDay > norma}"> class="table-danger" </c:if>>
+          <c:if test="${!isReadOnly}">
+            <td>
+             <a href="/foods/update/${foodStat.id}">${foodStat.id}</a>
+            </td>
+          </c:if>
           <td>${foodStat.name}</td>
           <td>${foodStat.dateOfEating}</td>
           <td>${foodStat.calories}</td>

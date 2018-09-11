@@ -1,4 +1,4 @@
-insert into food (ID, NAME, CALORIES, DATE_OF_EATING )  values(10001, 'food-1', 1500, '2018-08-01T10:10:30+01:01');
+insert into food (ID, NAME, CALORIES, DATE_OF_EATING ) values(10001, 'food-1', 1500, '2018-08-01T10:10:30+01:01');
 insert into food (ID, NAME, CALORIES, DATE_OF_EATING ) values(10002, 'food-2', 350, '2018-08-01T10:15:30+01:01');
 insert into food (ID, NAME, CALORIES, DATE_OF_EATING ) values(10003, 'food-3', 350, '2018-08-01T10:19:30+01:01');
 insert into food (ID, NAME, CALORIES, DATE_OF_EATING ) values(10004, 'food-4', 550, '2018-08-02T10:11:30+01:01');
