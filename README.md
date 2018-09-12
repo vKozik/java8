@@ -22,10 +22,16 @@ build the app with maven
 ```
 mvn clean install
 ```
-### Run
+### Run with H2 database profile
 
 ```
-java -jar target/Calories-0.0.1-SNAPSHOT.war
+java -jar -Dspring.profiles.active=h2 target/Calories-0.0.1-SNAPSHOT.war
+```
+
+### Run with JSON profile (read only mode)
+
+```
+java -jar -Dspring.profiles.active=json target/Calories-0.0.1-SNAPSHOT.war
 ```
 
 ### Run with docker
@@ -38,6 +44,7 @@ docker run -p 8082:8082 -t calories-app
 
 ### Web page
 
+http://localhost:8082/foods
 http://localhost:8082/stat
 
 ### Request examples
