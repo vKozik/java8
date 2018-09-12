@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("json")
 public class FoodDAOJsonImpl implements FoodDAO {
-    private static Logger logger = LoggerFactory.getLogger(FoodDAOJsonImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(FoodDAOJsonImpl.class);
 
     @Value("${file.name}")
     private String fileName;

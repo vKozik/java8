@@ -16,15 +16,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("h2")
-public class FoodDAOHybrisImpl implements FoodDAO {
-    private static Logger logger = LoggerFactory.getLogger(FoodDAOHybrisImpl.class);
+public class FoodDAOHybernateImpl implements FoodDAO {
+    private static Logger logger = LoggerFactory.getLogger(FoodDAOHybernateImpl.class);
     
     @PersistenceContext
     private EntityManager entityManager;
     
     @Override
     public Stream<Food> getStream(){
-        final Query query = entityManager.createQuery("SELECT c FROM Food c order by c.id", Food.class);
+        Query query = entityManager.createQuery("SELECT c FROM Food c order by c.id", Food.class);
         return query.getResultList().stream();
     }
     

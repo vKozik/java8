@@ -13,17 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 @Profile("h2")
 public class CaloriesControllerWriter {
     @Autowired
-    FoodService foodService;
+    private FoodService foodService;
 
     @GetMapping("/foods/add")
     public String addFood(Model model) {
-        final List<Food> foods = foodService.getAll();
         model.addAttribute("pageHeader", "Add new ");
         
         return "foodEdit";
@@ -31,7 +29,6 @@ public class CaloriesControllerWriter {
     
     @GetMapping("/foods/update/{id}")
     public String updateFood(@PathVariable(value = "id") Long id, Model model) {
-        final List<Food> foods = foodService.getAll();
         Food food = foodService.getFood(id);
     
         model.addAttribute("pageHeader", "Update new ");

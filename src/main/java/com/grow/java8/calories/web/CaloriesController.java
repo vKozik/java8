@@ -9,7 +9,6 @@ import com.grow.java8.calories.service.CaloriesCalculator;
 
 import com.grow.java8.calories.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
@@ -22,10 +21,10 @@ public class CaloriesController {
     private static final String READ_ONLY_PROFILE = "json";
 
     @Autowired
-    CaloriesCalculator caloriesCalculator;
+    private CaloriesCalculator caloriesCalculator;
 
     @Autowired
-    FoodService foodService;
+    private FoodService foodService;
 
     @Autowired
     private Environment environment;

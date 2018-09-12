@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestAPIController {
     @Autowired
-    CaloriesCalculator caloriesCalculator;
+    private CaloriesCalculator caloriesCalculator;
     
     @RequestMapping(value = "/api/test", method =  RequestMethod.GET)
     public ResponseEntity SoftLedOn() {
@@ -34,10 +34,10 @@ public class RestAPIController {
             @RequestParam(value = "toDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
 
         if (toDate == null){
-            return new ResponseEntity<Collection<FoodStat>>(caloriesCalculator.getStatByDay(fromDate), HttpStatus.OK);
+            return new ResponseEntity<>(caloriesCalculator.getStatByDay(fromDate), HttpStatus.OK);
         }
         
-        return new ResponseEntity<Collection<FoodStat>>(caloriesCalculator.getStatByDays(fromDate, toDate), HttpStatus.OK);
+        return new ResponseEntity<>(caloriesCalculator.getStatByDays(fromDate, toDate), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/api/checkLimit",
@@ -49,9 +49,9 @@ public class RestAPIController {
             @RequestParam(value = "toDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
         
         if (toDate == null){
-            return new ResponseEntity<Boolean>(caloriesCalculator.checkDailyLimit(fromDate, norma), HttpStatus.OK);
+            return new ResponseEntity<>(caloriesCalculator.checkDailyLimit(fromDate, norma), HttpStatus.OK);
         }
         
-        return new ResponseEntity<Boolean>(caloriesCalculator.checkDailyLimit(fromDate, toDate, norma), HttpStatus.OK);
+        return new ResponseEntity<>(caloriesCalculator.checkDailyLimit(fromDate, toDate, norma), HttpStatus.OK);
     }
 }

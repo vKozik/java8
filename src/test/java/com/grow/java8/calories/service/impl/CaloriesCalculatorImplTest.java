@@ -8,12 +8,10 @@ import com.grow.java8.calories.dao.FoodDAO;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,7 +40,6 @@ class CaloriesCalculatorImplTest {
     private static List<Food> foodList;
 
     private static final Double NORMA_CALORIES = 1000d;
-    private static final LocalDate DATE_TO = LocalDate.of(2018,05, 01);
     
     @Mock
     private FoodDAO foodDAO;
@@ -51,7 +48,7 @@ class CaloriesCalculatorImplTest {
     private CaloriesCalculator caloriesCalculator = new CaloriesCalculatorImpl();
 
     @BeforeAll
-    static private void init() throws IOException {
+    static private void init()  {
         try (FileInputStream inFile = new FileInputStream(new ClassPathResource(FILE_NAME).getFile())){
             ObjectMapper objectMapper = new ObjectMapper();
             foodList = objectMapper.readValue(inFile, new TypeReference<List<Food>>(){});

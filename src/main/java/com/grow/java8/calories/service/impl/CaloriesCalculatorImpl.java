@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CaloriesCalculatorImpl implements CaloriesCalculator {
-    private static Logger logger = LoggerFactory.getLogger(CaloriesCalculatorImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CaloriesCalculatorImpl.class);
 
     private static final String ARGUMENT_ERROR_MESSAGE = "argument %s of checkDailyLimit() are null";
     

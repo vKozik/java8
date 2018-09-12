@@ -1,10 +1,8 @@
 package com.grow.java8.calories.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
 
 public interface CaloriesCalculator {

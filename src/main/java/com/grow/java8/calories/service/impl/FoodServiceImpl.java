@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class FoodServiceImpl implements FoodService {
     @Autowired
-    FoodDAO foodDAO;
+    private FoodDAO foodDAO;
 
     @Override
     public List<Food> getAll() {
