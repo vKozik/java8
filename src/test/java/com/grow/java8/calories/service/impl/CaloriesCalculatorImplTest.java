@@ -80,8 +80,8 @@ class CaloriesCalculatorImplTest {
     void shouldReturnListFoodStat() {
         when(foodDAO.getStream()).thenReturn(foodList.stream());
         
-        LocalDate fromDate = LocalDate.of(2018,02, 01);
-        LocalDate toDate = LocalDate.of(2018,05, 05);
+        LocalDate fromDate = LocalDate.of(2018, 2, 1);
+        LocalDate toDate = LocalDate.of(2018,5, 5);
         List<FoodStat> result = caloriesCalculator.getStatByDays(fromDate, toDate);
 
         List<FoodStat> expect = Stream.of(
@@ -123,7 +123,7 @@ class CaloriesCalculatorImplTest {
 
     @Test
     void shouldThrowIllegalArgumentException() {
-        LocalDate date = LocalDate.of(2018,01, 2);
+        LocalDate date = LocalDate.of(2018,1, 2);
 
         assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(date, null, NORMA_CALORIES));
         assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(null, date, NORMA_CALORIES));

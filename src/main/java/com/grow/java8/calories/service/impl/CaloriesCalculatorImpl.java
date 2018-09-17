@@ -28,7 +28,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     private FoodDAO foodDAO;
     
     @Override
-    public boolean checkDailyLimit(final LocalDate fromDate, final LocalDate toDate, Double noramaCalories) {
+    public boolean checkDailyLimit(final LocalDate fromDate, final LocalDate toDate, Double normaCalories) {
         if (fromDate == null){
             throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "fromDate"));
         }
@@ -38,18 +38,18 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
 
         final LocalDateTime fromDateTime = fromDate.atTime(0,0);
         final LocalDateTime toDateTime = toDate.plusDays(1).atTime(0,0);
-        return checkLimit(fromDateTime, toDateTime, noramaCalories);
+        return checkLimit(fromDateTime, toDateTime, normaCalories);
     }
 
     @Override
-    public boolean checkDailyLimit(final LocalDate date, Double noramaCalories){
+    public boolean checkDailyLimit(final LocalDate date, Double normaCalories){
         if (date == null){
             throw new IllegalArgumentException(String.format(ARGUMENT_ERROR_MESSAGE, "date"));
         }
 
         final LocalDateTime fromDateTime = date.atTime(0,0);
         final LocalDateTime toDateTime = date.plusDays(1).atTime(0,0);
-        return checkLimit(fromDateTime, toDateTime, noramaCalories);
+        return checkLimit(fromDateTime, toDateTime, normaCalories);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                 .flatMap(list -> {
                     double caloriesPerDay = list.stream()
                             .map(Food::getCalories)
-                            .peek(calories -> logger.info("Calculatin caloriesPerDay. Added " + calories))
+                            .peek(calories -> logger.info("Calculating caloriesPerDay. Added " + calories))
                             .reduce(0d, (a, b)->a + b);
 
                     return list.stream()
@@ -98,14 +98,14 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                 .collect(Collectors.toList());
     }
 
-    private boolean checkLimit(final LocalDateTime fromDate, final LocalDateTime toDate, Double noramaCalories){
+    private boolean checkLimit(final LocalDateTime fromDate, final LocalDateTime toDate, Double normaCalories){
         return foodDAO.getStream()
                 .filter(food ->  food.getDateOfEating().isAfter(fromDate)
                         && food.getDateOfEating().isBefore(toDate))
                 .collect(Collectors.groupingBy(food->food.getDateOfEating().toLocalDate(),
                         HashMap::new, Collectors.summingDouble(Food::getCalories)))
                 .values().stream()
-                .allMatch(c -> Double.compare(c, noramaCalories) < 0);
+                .allMatch(c -> Double.compare(c, normaCalories) < 0);
 
     }
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
 
 @Controller
-@Profile("h2")
+@Profile("hibernate")
 public class CaloriesControllerWriter {
     @Autowired
     private FoodService foodService;

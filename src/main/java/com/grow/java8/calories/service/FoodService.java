@@ -12,7 +12,7 @@ public interface FoodService {
 
     Food setFood(Food food);
 
-    Food setFood(Long id, String name, LocalDateTime date, Double calories);
+    void setFood(Long id, String name, LocalDateTime date, Double calories);
 
     void removeFood(Long id);
 }

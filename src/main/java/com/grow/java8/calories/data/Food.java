@@ -1,29 +1,19 @@
 package com.grow.java8.calories.data;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
 
-@Entity
-@Table(name = "Food")
 public class Food {
-    private Long id;
-    private String name;
-    private double calories;
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDateTime dateOfEating ;
+    protected Long id;
+    protected String name;
+    protected double calories;
+    protected LocalDateTime dateOfEating ;
 
-    @Id
-    @GeneratedValue(generator="SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name="SEQUENCE_GENERATOR",sequenceName="Food_seq", allocationSize=10)
     public Long getId() {
         return id;
     }

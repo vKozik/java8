@@ -1,4 +1,4 @@
-package com.grow.java8.calories.dao.impl;
+package com.grow.java8.calories.json.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +8,9 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.dao.FoodDAO;
+import com.grow.java8.calories.data.Food;
+import com.grow.java8.calories.json.data.FoodJson;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 @Profile("json")
 public class FoodDAOJsonImpl implements FoodDAO {
     private static final Logger logger = LoggerFactory.getLogger(FoodDAOJsonImpl.class);
+    private static final String READ_ONLY_MESSAGE = "The profile is read only";
 
     @Value("${file.name}")
     private String fileName;
@@ -35,7 +37,7 @@ public class FoodDAOJsonImpl implements FoodDAO {
         final Resource resource = resourceLoader.getResource(fileName);
         try(InputStream inputStream = resource.getInputStream()) {
             final ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(inputStream, new TypeReference<List<Food>>(){});
+            return objectMapper.readValue(inputStream, new TypeReference<List<FoodJson>>(){});
         } catch (IOException ex) {
             logger.error("Error reading file! ", ex);
             return Collections.emptyList();
@@ -43,23 +45,26 @@ public class FoodDAOJsonImpl implements FoodDAO {
     }
 
     @Override
-    public Stream<Food> getStream(){
+    public Stream<? extends  Food> getStream(){
         return read().stream();
     }
 
     @Override
     public Food getFood(Long id) {
-        return null;
+        return read().stream()
+                .filter(f -> f.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Food with id " + id + " not found"));
     }
 
     @Override
     public Food setFood(Food food) {
-        return null;
+        throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
     }
 
     @Override
     public void removeFood(Food food){
-
+        throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
     }
 
 }
