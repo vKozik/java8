@@ -15,7 +15,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.grow.java8.calories.json.data.FoodJson;
 import com.grow.java8.calories.service.CaloriesCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,9 +38,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @ExtendWith(MockitoExtension.class)
-class CaloriesCalculatorImplTest {
+public class CaloriesCalculatorImplJsonTest {
     private static final String FILE_NAME = "test.json";
     private static List<Food> foodList;
+    private static Answer<Stream<? extends  Food>> foodsAnswer;
 
     private static final Double NORMA_CALORIES = 1000d;
     
@@ -51,10 +55,16 @@ class CaloriesCalculatorImplTest {
     static private void init()  {
         try (FileInputStream inFile = new FileInputStream(new ClassPathResource(FILE_NAME).getFile())){
             ObjectMapper objectMapper = new ObjectMapper();
-            foodList = objectMapper.readValue(inFile, new TypeReference<List<Food>>(){});
+            foodList = objectMapper.readValue(inFile, new TypeReference<List<FoodJson>>(){});
         } catch (IOException ex) {
             foodList = Lists.emptyList();
         }
+        
+        foodsAnswer = new Answer<Stream<? extends  Food>>(){
+            public Stream<? extends  Food> answer(InvocationOnMock invocation) throws Throwable {
+                return foodList.stream();
+            }
+        };
     }
 
     @ParameterizedTest
@@ -63,7 +73,7 @@ class CaloriesCalculatorImplTest {
                 "2018-05-01, 800, false",
                 "2018-05-02, 800, false"})
     void shouldCalculateCaloriesOneDay(LocalDate date, Double normaCalories, boolean result) {
-        when(foodDAO.getStream()).thenReturn(foodList.stream());
+        when(foodDAO.getStream()).thenAnswer(foodsAnswer);
         assertEquals(result, caloriesCalculator.checkDailyLimit(date, normaCalories));
     }
     
@@ -71,14 +81,14 @@ class CaloriesCalculatorImplTest {
     @CsvSource({"2018-05-03, 2018-05-10, 1000, true",
             "2018-05-03, 2018-05-10, 800, false"})
     void shouldCalculateCaloriesInterval(LocalDate dateFrom, LocalDate dateTo, Double normaCalories, boolean result) {
-        when(foodDAO.getStream()).thenReturn(foodList.stream());
+        when(foodDAO.getStream()).thenAnswer(foodsAnswer);
     
         assertEquals(result, caloriesCalculator.checkDailyLimit(dateFrom, dateTo, normaCalories));
     }
 
     @Test
     void shouldReturnListFoodStat() {
-        when(foodDAO.getStream()).thenReturn(foodList.stream());
+        when(foodDAO.getStream()).thenAnswer(foodsAnswer);
         
         LocalDate fromDate = LocalDate.of(2018, 2, 1);
         LocalDate toDate = LocalDate.of(2018,5, 5);
@@ -105,7 +115,7 @@ class CaloriesCalculatorImplTest {
     
     @Test
     void shouldReturnListFoodStatByOneDay() {
-        when(foodDAO.getStream()).thenReturn(foodList.stream());
+        when(foodDAO.getStream()).thenAnswer(foodsAnswer);
         
         LocalDate date = LocalDate.of(2018,5, 2);
         List<FoodStat> result = caloriesCalculator.getStatByDay(date);

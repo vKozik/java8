@@ -20,19 +20,20 @@ cd calories
 
 build the app with maven
 ```
-mvn clean install
-```
-### Run with H2 database profile
-
-```
-java -jar -Dspring.profiles.active=h2 target/Calories-0.0.1-SNAPSHOT.war
+mvn clean install -P<profiles>
 ```
 
-### Run with JSON profile (read only mode)
+### Run 
 
 ```
-java -jar -Dspring.profiles.active=json target/Calories-0.0.1-SNAPSHOT.war
+java -jar -Dspring.profiles.active=<profiles> target/Calories-0.0.1-SNAPSHOT.war
 ```
+
+## build and run profiles
+*  json  
+*  hibernate 
+*  oracle
+*  h2
 
 ### Run with docker
 
