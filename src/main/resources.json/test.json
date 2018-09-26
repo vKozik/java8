@@ -1,0 +1,72 @@
+[
+{
+    "name": "food-1", 
+    "calories": "1500",
+    "dateOfEating": "2018-08-01T10:10:30+01:01"
+},
+{
+    "name": "food-2", 
+    "calories": "350",
+    "dateOfEating": "2018-08-01T10:15:30+01:01"
+},
+{
+    "name": "food-3", 
+    "calories": "350",
+    "dateOfEating": "2018-08-01T10:19:30+01:01"
+},
+{
+    "name": "food-4", 
+    "calories": "550", 
+    "dateOfEating": "2018-08-02T10:11:30+01:01"
+},
+{
+    "name": "food-5", 
+    "calories": "50", 
+    "dateOfEating": "2018-08-02T10:15:33+01:01"
+},
+{
+    "name": "food-6", 
+    "calories": "150", 
+    "dateOfEating": "2018-08-02T10:19:30+01:01"
+},
+{
+    "name": "food-7", 
+    "calories": "520", 
+    "dateOfEating": "2018-08-02T10:20:30+01:01"
+},
+{
+    "name": "food-8", 
+    "calories": "678", 
+    "dateOfEating": "2018-08-03T10:12:30+01:01"
+},
+{
+    "name": "food-9", 
+    "calories": "250",
+    "dateOfEating": "2018-08-03T10:13:20+01:01"
+},
+{
+    "name": "food-10", 
+    "calories": "230", 
+    "dateOfEating": "2018-08-04T10:15:30+01:01"
+},
+{
+    "name": "food-11", 
+    "calories": "130",
+    "dateOfEating": "2018-08-04T10:16:35+01:01"
+},
+{
+    "name": "food-12", 
+    "calories": "250", 
+    "dateOfEating": "2018-08-04T10:18:30+01:01"
+},
+{
+    "name": "food-13", 
+    "calories": "450", 
+    "dateOfEating": "2018-08-06T10:19:30+01:01"
+},
+{
+    "name": "food-14", 
+    "calories": "550",
+    "dateOfEating": "2018-08-07T10:20:30+01:01"
+}
+]
