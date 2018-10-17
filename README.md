@@ -23,19 +23,19 @@ build the app with maven
 mvn clean install -P<profiles>
 ```
 ## build profiles:
-*  json  
+*  json
 *  hibernate 
 *  oracle
 *  h2
 
-### Run 
+### Run
 
 ```
 java -jar target/Calories-0.0.1-SNAPSHOT.war --spring.config.additional-location=file://<property file>
 ```
 ## property files:
-*  application-json.properties 
-*  application-db.properties 
+*  application-json.properties
+*  application-db.properties
 
 
 ### Run with docker
