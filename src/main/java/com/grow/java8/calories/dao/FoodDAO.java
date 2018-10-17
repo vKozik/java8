@@ -1,15 +1,16 @@
 package com.grow.java8.calories.dao;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.grow.java8.calories.data.Food;
 
-public interface FoodDAO {
-    Stream<? extends  Food> getStream();
+public interface FoodDAO<T extends Food> {
+    Stream<? extends T> getStream();
 
-    Food getFood(Long id);
+    Optional<T> getFood(Long id);
 
-    Food setFood(Food food);
+    T setFood(T food);
 
-    void removeFood(Food food);
+    void removeFood(T food);
 }

@@ -94,6 +94,7 @@
             <id>hibernate</id>
             <properties>
                 <activatedProperties>hibernate</activatedProperties>
+                <spring.profile>hibernate,db</spring.profile>
             </properties>
             <dependencies>
                 <dependency>
@@ -125,6 +126,12 @@
                         </configuration>
                     </plugin>
                 </plugins>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources.hibernate</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
             </build>
         </profile>
 
@@ -162,7 +169,11 @@
             <id>json</id>
             <properties>
                 <activatedProperties>json</activatedProperties>
+                <spring.profile>json</spring.profile>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
 
             <dependencies>
                 <dependency>
@@ -188,6 +199,13 @@
                         </configuration>
                     </plugin>
                 </plugins>
+
+                <resources>
+                    <resource>
+                        <directory>src/main/resources.json</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
             </build>
         </profile>
     </profiles>
@@ -203,6 +221,17 @@
                         <encoding.source>UTF-8</encoding.source>
                         <encoding.reporting>UTF-8</encoding.reporting>
                     </additionalProperties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                    <delimiters>
+                        <delimiter>${*}</delimiter>
+                    </delimiters>
                 </configuration>
             </plugin>
             <plugin>
@@ -240,5 +269,12 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources/config</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

@@ -32,12 +32,10 @@ public class CaloriesControllerWriter {
         Food food = foodService.getFood(id);
     
         model.addAttribute("pageHeader", "Update new ");
-        if (food != null) {
-            model.addAttribute("foodId", food.getId());
-            model.addAttribute("foodName", food.getName());
-            model.addAttribute("foodDate", food.getDateOfEating());
-            model.addAttribute("foodCalories", food.getCalories());
-        }
+        model.addAttribute("foodId", food.getId());
+        model.addAttribute("foodName", food.getName());
+        model.addAttribute("foodDate", food.getDateOfEating());
+        model.addAttribute("foodCalories", food.getCalories());
         
         return "foodEdit";
     }

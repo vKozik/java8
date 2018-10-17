@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.grow.java8.calories.dao.FoodDAO;
-import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.jpa.entity.FoodEntity;
 import com.grow.java8.calories.service.FoodService;
 
@@ -18,32 +17,33 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @Profile("hibernate")
-public class FoodServiceImpl implements FoodService {
+public class FoodServiceJpaImpl implements FoodService<FoodEntity> {
+    private static final String CANNOT_FIND_FOOD = "Cannot find the food, id: %d";
+
     @Autowired
-    private FoodDAO foodDAO;
+    private FoodDAO<FoodEntity> foodDAO;
 
     @Override
-    public List<Food> getAll() {
+    public List<FoodEntity> getAll() {
         return foodDAO.getStream().collect(Collectors.toList());
     }
 
     @Override
-    public Food getFood(Long id) {
-        return foodDAO.getFood(id);
+    public FoodEntity getFood(Long id) {
+        return foodDAO.getFood(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));
     }
 
+
     @Override
-    public Food setFood(Food food) {
+    public FoodEntity setFood(FoodEntity food) {
         return foodDAO.setFood(food);
     }
     
     @Override
     public void setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
-        Food food =  foodDAO.getFood(id);
-        if (food == null){
-            food = new FoodEntity();
-        }
-    
+        FoodEntity food =  foodDAO.getFood(id).orElse(new FoodEntity());
+
         food.setName(name);
         food.setDateOfEating(date);
         food.setCalories(calories);
@@ -53,10 +53,10 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void removeFood(Long id) {
-        final Food food = foodDAO.getFood(id);
-        if (food != null) {
-            foodDAO.removeFood(food);
-        }
+        final FoodEntity food = foodDAO.getFood(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));
+
+        foodDAO.removeFood(food);
     }
 
 }

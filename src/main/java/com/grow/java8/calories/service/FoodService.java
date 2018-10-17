@@ -5,12 +5,12 @@ import com.grow.java8.calories.data.Food;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface FoodService {
-    List<Food> getAll();
+public interface FoodService<T extends Food> {
+    List<T> getAll();
 
-    Food getFood(Long id);
+    T getFood(Long id);
 
-    Food setFood(Food food);
+    T setFood(T food);
 
     void setFood(Long id, String name, LocalDateTime date, Double calories);
 

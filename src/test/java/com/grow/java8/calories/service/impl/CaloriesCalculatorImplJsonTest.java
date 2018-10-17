@@ -61,7 +61,7 @@ public class CaloriesCalculatorImplJsonTest {
         }
         
         foodsAnswer = new Answer<Stream<? extends  Food>>(){
-            public Stream<? extends  Food> answer(InvocationOnMock invocation) throws Throwable {
+            public Stream<? extends  Food> answer(InvocationOnMock invocation) {
                 return foodList.stream();
             }
         };
@@ -117,12 +117,12 @@ public class CaloriesCalculatorImplJsonTest {
     void shouldReturnListFoodStatByOneDay() {
         when(foodDAO.getStream()).thenAnswer(foodsAnswer);
         
-        LocalDate date = LocalDate.of(2018,5, 2);
-        List<FoodStat> result = caloriesCalculator.getStatByDay(date);
-        
-        List<FoodStat> expect = Stream.of(
-                "food-4,550.0,2018-05-02T10:11:30,1270.0",
-                "food-5,50.0,2018-05-02T10:15:33,1270.0",
+            LocalDate date = LocalDate.of(2018,5, 2);
+            List<FoodStat> result = caloriesCalculator.getStatByDay(date);
+
+            List<FoodStat> expect = Stream.of(
+                    "food-4,550.0,2018-05-02T10:11:30,1270.0",
+                    "food-5,50.0,2018-05-02T10:15:33,1270.0",
                 "food-6,150.0,2018-05-02T10:19:30,1270.0",
                 "food-7,520.0,2018-05-02T10:20:30,1270.0")
                 .map(this::parseFoodStat)
@@ -135,13 +135,13 @@ public class CaloriesCalculatorImplJsonTest {
     void shouldThrowIllegalArgumentException() {
         LocalDate date = LocalDate.of(2018,1, 2);
 
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(date, null, NORMA_CALORIES));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(null, date, NORMA_CALORIES));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(null, null, NORMA_CALORIES));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.checkDailyLimit(null, NORMA_CALORIES));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.getStatByDays(date, null));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.getStatByDays(null, date));
-        assertThrows(IllegalArgumentException.class, ()-> caloriesCalculator.getStatByDay(null));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.checkDailyLimit(date, null, NORMA_CALORIES));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.checkDailyLimit(null, date, NORMA_CALORIES));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.checkDailyLimit(null, null, NORMA_CALORIES));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.checkDailyLimit(null, NORMA_CALORIES));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.getStatByDays(date, null));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.getStatByDays(null, date));
+        assertThrows(NullPointerException.class, ()-> caloriesCalculator.getStatByDay(null));
     }
     
     private FoodStat parseFoodStat(final String value){

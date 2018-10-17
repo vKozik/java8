@@ -2,6 +2,7 @@ package com.grow.java8.calories.web;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
@@ -35,15 +36,10 @@ public class CaloriesController {
             @RequestParam(value = "toDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
             @RequestParam(value = "norma", required = false) Double norma,
             Model model) {
-    
-        if (fromDate == null) {
-            fromDate = LocalDate.now();
-        }
-    
-        if (toDate == null) {
-            toDate = fromDate;
-        }
-        
+
+        fromDate = Optional.ofNullable(fromDate).orElse(LocalDate.now());
+        toDate = Optional.ofNullable(toDate).orElse(fromDate);
+
         final List<FoodStat> foodStats = caloriesCalculator.getStatByDays(fromDate, toDate);
         
         model.addAttribute("norma", norma);

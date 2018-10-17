@@ -1,7 +1,7 @@
 package com.grow.java8.calories.json.service;
 
 import com.grow.java8.calories.dao.FoodDAO;
-import com.grow.java8.calories.data.Food;
+import com.grow.java8.calories.json.data.FoodJson;
 import com.grow.java8.calories.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -13,24 +13,26 @@ import java.util.stream.Collectors;
 
 @Service
 @Profile("json")
-public class FoodServiceImpl implements FoodService {
+public class FoodServiceJsonImpl implements FoodService<FoodJson> {
     private static final String READ_ONLY_MESSAGE = "The profile is read only";
+    private static final String CANNOT_FIND_FOOD = "Cannot find the food, id: %d";
 
     @Autowired
-    private FoodDAO foodDAO;
+    private FoodDAO<FoodJson> foodDAO;
 
     @Override
-    public List<Food> getAll() {
+    public List<FoodJson> getAll() {
         return foodDAO.getStream().collect(Collectors.toList());
     }
 
     @Override
-    public Food getFood(Long id) {
-        return foodDAO.getFood(id);
+    public FoodJson getFood(Long id) {
+        return foodDAO.getFood(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));
     }
 
     @Override
-    public Food setFood(Food food) {
+    public FoodJson setFood(FoodJson food) {
         throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
     }
     

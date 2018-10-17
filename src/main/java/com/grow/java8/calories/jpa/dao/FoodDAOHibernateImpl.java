@@ -1,5 +1,6 @@
 package com.grow.java8.calories.jpa.dao;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
@@ -7,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.grow.java8.calories.dao.FoodDAO;
-import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.jpa.entity.FoodEntity;
 
 import org.slf4j.Logger;
@@ -17,35 +17,33 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("hibernate")
-public class FoodDAOHibernateImpl implements FoodDAO {
-    private static Logger logger = LoggerFactory.getLogger(FoodDAOHibernateImpl.class);
-    
+public class FoodDAOHibernateImpl implements FoodDAO<FoodEntity> {
+    private static final String ID_NULL_EXCEPTION = "id must not be null!";
+
     @PersistenceContext
     private EntityManager entityManager;
     
     @Override
-    public Stream<? extends Food> getStream(){
+    public Stream<? extends FoodEntity> getStream(){
         Query query = entityManager.createQuery("SELECT c FROM FoodEntity c order by c.id", FoodEntity.class);
         return query.getResultList().stream();
     }
     
     @Override
-    public Food getFood(Long id) {
-        if (id == null){
-            return null;
-        }
+    public Optional<FoodEntity> getFood(Long id) {
+        Long foodId = Optional.ofNullable(id).orElseThrow(() -> new IllegalArgumentException(ID_NULL_EXCEPTION));
 
-        return entityManager.getReference(FoodEntity.class, id);
+        return Optional.ofNullable(entityManager.getReference(FoodEntity.class, foodId));
     }
     
     @Override
-    public Food setFood(Food food) {
-        return entityManager.merge((FoodEntity)food);
+    public FoodEntity setFood(FoodEntity food) {
+        return entityManager.merge(food);
     }
 
     @Override
-    public void removeFood(Food food){
-        entityManager.remove((FoodEntity)food);
+    public void removeFood(FoodEntity food){
+        entityManager.remove(food);
     }
 
 }

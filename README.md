@@ -22,18 +22,21 @@ build the app with maven
 ```
 mvn clean install -P<profiles>
 ```
-
-### Run 
-
-```
-java -jar -Dspring.profiles.active=<profiles> target/Calories-0.0.1-SNAPSHOT.war
-```
-
-## build and run profiles
+## build profiles:
 *  json  
 *  hibernate 
 *  oracle
 *  h2
+
+### Run 
+
+```
+java -jar target/Calories-0.0.1-SNAPSHOT.war --spring.config.additional-location=file://<property file>
+```
+## property files:
+*  application-json.properties 
+*  application-db.properties 
+
 
 ### Run with docker
 
