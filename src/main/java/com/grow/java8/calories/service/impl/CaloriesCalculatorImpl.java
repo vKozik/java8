@@ -8,12 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.grow.java8.calories.converters.FoodStatConverter;
 import com.grow.java8.calories.data.Food;
 import com.grow.java8.calories.data.FoodStat;
+import com.grow.java8.calories.mapper.FoodStatMapper;
 import com.grow.java8.calories.service.CaloriesCalculator;
 import com.grow.java8.calories.dao.FoodDAO;
 import org.apache.commons.lang3.Validate;
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
     private static final Logger logger = LoggerFactory.getLogger(CaloriesCalculatorImpl.class);
 
     private static final String ARGUMENT_ERROR_MESSAGE = "argument %s of checkDailyLimit() are null";
-    
+
     @Autowired
     private FoodDAO<?> foodDAO;
 
@@ -74,6 +75,8 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                 .collect(Collectors.groupingBy(food->food.getDateOfEating().toLocalDate(),
                         HashMap::new, Collectors.toList()));
 
+        FoodStatMapper mapper = Mappers.getMapper(FoodStatMapper.class);
+
         return filteredFoods.values().stream()
                 .flatMap(list -> {
                     double caloriesPerDay = list.stream()
@@ -82,7 +85,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                             .reduce(0d, (a, b)->a + b);
 
                     return list.stream()
-                            .map(food -> FoodStatConverter.getFoodStat(food, caloriesPerDay));
+                            .map(food -> mapper.FoodToFoodStat(food, caloriesPerDay));
                 }).sorted(Comparator.comparing(FoodStat::getDateOfEating))
                 .collect(Collectors.toList());
     }
