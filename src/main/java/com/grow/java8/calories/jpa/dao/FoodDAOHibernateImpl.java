@@ -10,8 +10,6 @@ import javax.persistence.Query;
 import com.grow.java8.calories.dao.FoodDAO;
 import com.grow.java8.calories.jpa.entity.FoodEntity;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
