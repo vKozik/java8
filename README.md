@@ -20,7 +20,8 @@ cd calories
 
 build the app with maven
 ```
-mvn clean install -P<profiles>
+mvn clean install -P<profiles> -Drun.jvmArguments="-Dspring.config.location=file://<property file>"
+
 ```
 ## build profiles:
 *  json
