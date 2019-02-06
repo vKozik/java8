@@ -58,4 +58,8 @@ http://localhost:8082/api/test
 http://localhost:8082/api/stat?fromDate=2018-05-02&toDate=2018-05-05
 http://localhost:8082/api/checkLimit?norm=1200&fromDate=2018-05-02&toDate=2018-05-05
 
+### Swagger 
+http://localhost:8082/swagger-ui.html#/rest-api-controller
+
+
 
