@@ -6,6 +6,9 @@ import java.util.Collection;
 import com.grow.java8.calories.data.FoodStat;
 import com.grow.java8.calories.service.CaloriesCalculator;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,12 +23,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestAPIController {
     @Autowired
     private CaloriesCalculator caloriesCalculator;
-    
-    @RequestMapping(value = "/api/test", method =  RequestMethod.GET)
+
+    @ApiOperation(value = "Check service", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully responce")
+    }
+    )
+    @RequestMapping(value = "/api/test", method = RequestMethod.GET)
     public ResponseEntity SoftLedOn() {
         return new ResponseEntity("Ok", HttpStatus.OK);
     }
-    
+
+    @ApiOperation(value = "Get statistics", response = FoodStat.class, responseContainer="List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully statistics")
+    }
+    )
     @RequestMapping(value = "/api/stat",
             method =  RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +52,12 @@ public class RestAPIController {
         
         return new ResponseEntity<>(caloriesCalculator.getStatByDays(fromDate, toDate), HttpStatus.OK);
     }
-    
+
+    @ApiOperation(value = "Get limits", response = Boolean.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully limits")
+    }
+    )
     @RequestMapping(value = "/api/checkLimit",
             method =  RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
