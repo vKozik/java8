@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import com.grow.java8.calories.dao.FoodDAO;
 import com.grow.java8.calories.jpa.entity.FoodEntity;
 
+import org.hibernate.Hibernate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +31,8 @@ public class FoodDAOHibernateImpl implements FoodDAO<FoodEntity> {
     @Override
     public Optional<FoodEntity> getFood(Long id) {
         Long foodId = Optional.ofNullable(id).orElseThrow(() -> new IllegalArgumentException(ID_NULL_EXCEPTION));
-
-        return Optional.ofNullable(entityManager.getReference(FoodEntity.class, foodId));
+        FoodEntity food = (FoodEntity) Hibernate.unproxy(entityManager.getReference(FoodEntity.class, foodId));
+        return Optional.ofNullable(food);
     }
     
     @Override

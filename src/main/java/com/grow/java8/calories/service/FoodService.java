@@ -1,6 +1,7 @@
 package com.grow.java8.calories.service;
 
 import com.grow.java8.calories.data.Food;
+import com.grow.java8.calories.jpa.entity.FoodEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +13,7 @@ public interface FoodService<T extends Food> {
 
     T setFood(T food);
 
-    void setFood(Long id, String name, LocalDateTime date, Double calories);
+    FoodEntity setFood(Long id, String name, LocalDateTime date, Double calories);
 
     void removeFood(Long id);
 }

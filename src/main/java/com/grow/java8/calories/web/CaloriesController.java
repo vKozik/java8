@@ -10,6 +10,7 @@ import com.grow.java8.calories.service.CaloriesCalculator;
 
 import com.grow.java8.calories.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.core.env.Environment;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
@@ -47,10 +48,9 @@ public class CaloriesController {
         model.addAttribute("fromDate", fromDate);
         model.addAttribute("toDate", toDate);
         model.addAttribute("isReadOnly", isReadOnly());
-        
+
         return "stat";
     }
-
 
     @GetMapping("/foods")
     public String getAllFoods(Model model) {
@@ -60,7 +60,13 @@ public class CaloriesController {
 
         return "foods";
     }
-    
+
+    @CacheEvict(value = "myCache", allEntries = true)
+    @GetMapping("/clearCache")
+    public String clearCache(Model model) {
+        return "redirect:/foods";
+    }
+
     private boolean isReadOnly(){
         String[] activeProfiles = environment.getActiveProfiles();
         return READ_ONLY_PROFILE.equals(activeProfiles[0]);

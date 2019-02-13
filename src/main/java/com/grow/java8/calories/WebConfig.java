@@ -1,6 +1,7 @@
 package com.grow.java8.calories;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
+@EnableCaching
 public class WebConfig extends WebMvcConfigurationSupport {
     @Value("${spring.mvc.view.prefix}")
     private String mvcPrefix;

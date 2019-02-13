@@ -11,6 +11,10 @@ import com.grow.java8.calories.jpa.entity.FoodEntity;
 import com.grow.java8.calories.service.FoodService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -24,34 +28,42 @@ public class FoodServiceJpaImpl implements FoodService<FoodEntity> {
     private FoodDAO<FoodEntity> foodDAO;
 
     @Override
+    @Cacheable(value = "myCache", key = "'AllFood'")
     public List<FoodEntity> getAll() {
         return foodDAO.getStream().collect(Collectors.toList());
     }
 
     @Override
+    @Cacheable(value = "myCache", key = "#id")
     public FoodEntity getFood(Long id) {
         return foodDAO.getFood(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));
     }
 
-
     @Override
+    @CachePut(value = "myCache", key="#food.id")
     public FoodEntity setFood(FoodEntity food) {
         return foodDAO.setFood(food);
     }
     
     @Override
-    public void setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
+    @CachePut(value = "myCache", key="#id")
+    @CacheEvict(value = "myCache", key = "'AllFood'")
+    public FoodEntity setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
         FoodEntity food =  foodDAO.getFood(id).orElse(new FoodEntity());
 
         food.setName(name);
         food.setDateOfEating(date);
         food.setCalories(calories);
     
-        setFood(food);
+        return setFood(food);
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "myCache", key = "'AllFood'"),
+            @CacheEvict(value = "myCache", key = "#id")
+    })
     public void removeFood(Long id) {
         final FoodEntity food = foodDAO.getFood(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));

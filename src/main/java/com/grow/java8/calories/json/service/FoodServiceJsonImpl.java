@@ -1,9 +1,11 @@
 package com.grow.java8.calories.json.service;
 
 import com.grow.java8.calories.dao.FoodDAO;
+import com.grow.java8.calories.jpa.entity.FoodEntity;
 import com.grow.java8.calories.json.data.FoodJson;
 import com.grow.java8.calories.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,13 @@ public class FoodServiceJsonImpl implements FoodService<FoodJson> {
     private FoodDAO<FoodJson> foodDAO;
 
     @Override
+    @Cacheable(value = "myCache")
     public List<FoodJson> getAll() {
         return foodDAO.getStream().collect(Collectors.toList());
     }
 
     @Override
+    @Cacheable(value = "myCache")
     public FoodJson getFood(Long id) {
         return foodDAO.getFood(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(CANNOT_FIND_FOOD, id)));
@@ -37,7 +41,7 @@ public class FoodServiceJsonImpl implements FoodService<FoodJson> {
     }
     
     @Override
-    public void setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
+    public FoodEntity setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
         throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
     }
 
