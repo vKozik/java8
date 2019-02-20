@@ -13,6 +13,7 @@ public class FoodJson extends Food {
     
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @Override
     public LocalDateTime getDateOfEating() {
         return dateOfEating;
     }

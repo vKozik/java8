@@ -34,8 +34,8 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
         Validate.notNull(fromDate, String.format(ARGUMENT_ERROR_MESSAGE, "fromDate"));
         Validate.notNull(toDate, String.format(ARGUMENT_ERROR_MESSAGE, "toDate"));
 
-        final LocalDateTime fromDateTime = fromDate.atTime(0,0);
-        final LocalDateTime toDateTime = toDate.plusDays(1).atTime(0,0);
+        LocalDateTime fromDateTime = fromDate.atTime(0,0);
+        LocalDateTime toDateTime = toDate.plusDays(1).atTime(0,0);
         return checkLimit(fromDateTime, toDateTime, normaCalories);
     }
 
@@ -85,7 +85,7 @@ public class CaloriesCalculatorImpl implements CaloriesCalculator {
                             .reduce(0d, (a, b)->a + b);
 
                     return list.stream()
-                            .map(food -> mapper.FoodToFoodStat(food, caloriesPerDay));
+                            .map(food -> mapper.foodToFoodStat(food, caloriesPerDay));
                 }).sorted(Comparator.comparing(FoodStat::getDateOfEating))
                 .collect(Collectors.toList());
     }

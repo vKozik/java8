@@ -1,6 +1,8 @@
 package com.grow.java8.tickets.web;
 
 import com.grow.java8.tickets.service.TicketService;
+import com.grow.java8.tickets.data.Ticket;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sun.security.krb5.internal.Ticket;
 
 import java.util.List;
 

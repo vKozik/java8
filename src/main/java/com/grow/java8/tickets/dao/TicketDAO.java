@@ -9,5 +9,5 @@ public interface TicketDAO {
     
     Optional<Ticket> getLastFree();
 
-    Long getCuntSold();
+    Long getCountSold();
 }

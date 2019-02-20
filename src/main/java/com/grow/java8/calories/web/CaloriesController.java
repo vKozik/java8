@@ -37,7 +37,6 @@ public class CaloriesController {
             @RequestParam(value = "toDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
             @RequestParam(value = "norma", required = false) Double norma,
             Model model) {
-
         fromDate = Optional.ofNullable(fromDate).orElse(LocalDate.now());
         toDate = Optional.ofNullable(toDate).orElse(fromDate);
 

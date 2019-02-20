@@ -26,11 +26,11 @@ public class RestAPIController {
 
     @ApiOperation(value = "Check service", response = String.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully responce")
+            @ApiResponse(code = 200, message = "Successfully response")
     }
     )
     @RequestMapping(value = "/api/test", method = RequestMethod.GET)
-    public ResponseEntity SoftLedOn() {
+    public ResponseEntity apiTest() {
         return new ResponseEntity("Ok", HttpStatus.OK);
     }
 

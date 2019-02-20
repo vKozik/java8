@@ -60,11 +60,7 @@ public class CaloriesCalculatorImplJsonTest {
             foodList = Lists.emptyList();
         }
         
-        foodsAnswer = new Answer<Stream<? extends  Food>>(){
-            public Stream<? extends  Food> answer(InvocationOnMock invocation) {
-                return foodList.stream();
-            }
-        };
+        foodsAnswer = invocation -> foodList.stream();
     }
 
     @ParameterizedTest

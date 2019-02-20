@@ -21,7 +21,7 @@ class FoodStatMapperTest {
     private final FoodStatMapper mapper = Mappers.getMapper(FoodStatMapper.class);
     
     @Test
-    void shoulMappFoodStat() {
+    void shouldMapFoodStat() {
         Food food = new Food();
         food.setId(1L);
         food.setName("test-food");
@@ -29,7 +29,7 @@ class FoodStatMapperTest {
         food.setDateOfEating(LocalDateTime.now());
         double caloriesPerDay = 1000d;
         
-        FoodStat foodStat = mapper.FoodToFoodStat(food, caloriesPerDay);
+        FoodStat foodStat = mapper.foodToFoodStat(food, caloriesPerDay);
     
         assertEquals(food.getId(), foodStat.getId());
         assertEquals(food.getName().toUpperCase(), foodStat.getName());

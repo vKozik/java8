@@ -11,16 +11,12 @@ import javax.persistence.Query;
 import com.grow.java8.tickets.dao.TicketDAO;
 import com.grow.java8.tickets.data.Ticket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("hibernate")
 public class TicketDAOImpl implements TicketDAO {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketDAOImpl.class);
-   
     @PersistenceContext
     private EntityManager entityManager;
     
@@ -41,7 +37,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public Long getCuntSold(){
+    public Long getCountSold(){
         return (Long) entityManager.createQuery("SELECT count(1) FROM Ticket t where not t.buyer is null").getSingleResult();
     }
 

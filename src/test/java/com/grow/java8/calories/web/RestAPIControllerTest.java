@@ -68,7 +68,7 @@ class RestAPIControllerTest {
     }
     
     @Test
-    public void shouldReturnFalseeOnCheckLimit()
+    public void shouldReturnFalseOnCheckLimit()
             throws Exception {
         
         mockMvc.perform(get("/api/checkLimit?norm=1500&fromDate=2018-08-01&toDate=2018-08-05")

@@ -5,7 +5,7 @@ import com.grow.java8.tickets.data.Ticket;
 import java.util.List;
 
 public interface TicketService {
-    Ticket sellTicket(String Buyer);
+    Ticket sellTicket(String buyer);
 
     List<Long> getCountSold();
 }

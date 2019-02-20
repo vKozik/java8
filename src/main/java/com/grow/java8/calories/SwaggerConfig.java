@@ -22,11 +22,11 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.grow.java8.calories.web"))
                 .paths(regex("/api.*"))
                 .build()
-                .apiInfo(getApiIngo());
+                .apiInfo(getApiInfo());
 
     }
 
-    private ApiInfo getApiIngo() {
+    private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title("Calories REST API")
                 .description("Spring Boot REST API for Calories")
