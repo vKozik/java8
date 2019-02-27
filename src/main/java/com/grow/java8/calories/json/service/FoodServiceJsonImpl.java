@@ -44,6 +44,11 @@ public class FoodServiceJsonImpl implements FoodService<FoodJson> {
     public FoodEntity setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
         throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
     }
+    
+    @Override
+    public FoodEntity addFood(final String name, final LocalDateTime date, final Double calories) {
+        throw new UnsupportedOperationException(READ_ONLY_MESSAGE);
+    }
 
     @Override
     public void removeFood(Long id) {

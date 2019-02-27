@@ -29,7 +29,12 @@ public class TicketAPIControllerReadCommited {
 
     @GetMapping(value = "/buyTicket")
     public ResponseEntity<Ticket> buyTicket(@RequestParam(value = "buyer") String buyer) {
-        return new ResponseEntity(ticketService.sellTicket(buyer), HttpStatus.OK);
+        try {
+            Ticket ticket = ticketService.sellTicket(buyer);
+            return new ResponseEntity(ticket, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity("Error buyer", HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/sold")

@@ -14,6 +14,8 @@ public interface FoodService<T extends Food> {
     T setFood(T food);
 
     FoodEntity setFood(Long id, String name, LocalDateTime date, Double calories);
+    
+    FoodEntity addFood(String name, LocalDateTime date, Double calories);
 
     void removeFood(Long id);
 }

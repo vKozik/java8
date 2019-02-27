@@ -22,7 +22,7 @@ public class CaloriesControllerWriter {
 
     @GetMapping("/foods/add")
     public String addFood(Model model) {
-        model.addAttribute("pageHeader", "Add new ");
+        model.addAttribute("pageHeader", "Add new");
         
         return "foodEdit";
     }
@@ -31,7 +31,7 @@ public class CaloriesControllerWriter {
     public String updateFood(@PathVariable(value = "id") Long id, Model model) {
         Food food = foodService.getFood(id);
     
-        model.addAttribute("pageHeader", "Update new ");
+        model.addAttribute("pageHeader", "Update");
         model.addAttribute("foodId", food.getId());
         model.addAttribute("foodName", food.getName());
         model.addAttribute("foodDate", food.getDateOfEating());
@@ -45,7 +45,11 @@ public class CaloriesControllerWriter {
             @RequestParam String foodName,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime foodDate,
             @RequestParam Double foodCalories) {
-        foodService.setFood(foodId, foodName, foodDate, foodCalories);
+        if (foodId != null) {
+            foodService.setFood(foodId, foodName, foodDate, foodCalories);
+        } else {
+            foodService.addFood(foodName, foodDate, foodCalories);
+        }
         
         return "redirect:/foods" ;
     }

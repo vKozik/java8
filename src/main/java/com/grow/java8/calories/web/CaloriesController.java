@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -70,5 +71,11 @@ public class CaloriesController {
         String[] activeProfiles = environment.getActiveProfiles();
         return READ_ONLY_PROFILE.equals(activeProfiles[0]);
     }
-
+    
+    @ExceptionHandler(value=NumberFormatException.class)
+    public String handleNumberFormatException(NumberFormatException ex, Model model)
+    {
+        model.addAttribute("message", "Wrong parameters");
+        return "exception";
+    }
 }

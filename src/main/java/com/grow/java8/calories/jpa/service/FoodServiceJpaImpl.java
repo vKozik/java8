@@ -50,12 +50,26 @@ public class FoodServiceJpaImpl implements FoodService<FoodEntity> {
     @CachePut(value = "myCache", key="#id")
     @CacheEvict(value = "myCache", key = "'AllFood'")
     public FoodEntity setFood(final Long id, final String name, final LocalDateTime date, final Double calories) {
-        FoodEntity food =  foodDAO.getFood(id).orElse(new FoodEntity());
+        FoodEntity food = foodDAO.getFood(id).orElseThrow(() -> new IllegalArgumentException(CANNOT_FIND_FOOD));
 
         food.setName(name);
         food.setDateOfEating(date);
         food.setCalories(calories);
     
+        return setFood(food);
+    }
+    
+    @Override
+    @Caching(evict = {
+            @CacheEvict(value = "myCache", key = "'AllFood'"),
+    })
+    public FoodEntity addFood(final String name, final LocalDateTime date, final Double calories) {
+        FoodEntity food = new FoodEntity();
+        
+        food.setName(name);
+        food.setDateOfEating(date);
+        food.setCalories(calories);
+        
         return setFood(food);
     }
 
