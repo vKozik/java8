@@ -6,7 +6,9 @@ import com.grow.java8.tickets.data.Ticket;
 
 public interface TicketDAO {
     Ticket setTicket(Ticket ticket);
-    
+
+    Ticket getTicket(String id);
+
     Optional<Ticket> getLastFree();
 
     Long getCountSold();

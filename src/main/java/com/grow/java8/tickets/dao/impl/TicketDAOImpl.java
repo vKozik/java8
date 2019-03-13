@@ -12,19 +12,28 @@ import com.grow.java8.tickets.dao.TicketDAO;
 import com.grow.java8.tickets.data.Ticket;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 @Profile("hibernate")
 public class TicketDAOImpl implements TicketDAO {
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Override
     public Ticket setTicket(final Ticket ticket) {
-        return entityManager.merge(ticket);
+        Ticket newTicket = entityManager.merge(ticket);
+        entityManager.flush();
+        return newTicket;
     }
-    
+
+    @Override
+    public Ticket getTicket(final String id) {
+        Query query = entityManager.createNamedQuery("Ticket.find", Ticket.class);
+        query.setParameter("id", id);
+        return (Ticket) query.getSingleResult();
+    }
+
     @Override
     public Optional<Ticket> getLastFree() {
         Query query = entityManager.createNamedQuery("Ticket.findFree", Ticket.class);
@@ -38,7 +47,7 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Long getCountSold(){
-        return (Long) entityManager.createQuery("SELECT count(1) FROM Ticket t where not t.buyer is null").getSingleResult();
+        return entityManager.createNamedQuery("Ticket.findSold", Long.class).getSingleResult();
     }
 
 }

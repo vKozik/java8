@@ -1,31 +1,31 @@
-insert into ticket (ID)
-select '0000000001' from dual union
-select '0000000002' from dual union
-select '0000000003' from dual union
-select '0000000004' from dual union
-select '0000000005' from dual union
-select '0000000006' from dual union
-select '0000000007' from dual union
-select '0000000008' from dual union
-select '0000000009' from dual union
-select '0000000010' from dual union
-select '0000000011' from dual union
-select '0000000012' from dual union
-select '0000000013' from dual union
-select '0000000014' from dual union
-select '0000000015' from dual union
-select '0000000016' from dual union
-select '0000000017' from dual union
-select '0000000018' from dual union
-select '0000000019' from dual union
-select '0000000021' from dual union
-select '0000000022' from dual union
-select '0000000023' from dual union
-select '0000000024' from dual union
-select '0000000025' from dual union
-select '0000000026' from dual union
-select '0000000027' from dual union
-select '0000000028' from dual union
-select '0000000029' from dual union
-select '0000000030' from dual union
-select '0000000031' from dual
+insert into ticket (ID, version)
+select '0000000001', 1 from dual union
+select '0000000002', 1 from dual union
+select '0000000003', 1 from dual union
+select '0000000004', 1 from dual union
+select '0000000005', 1 from dual union
+select '0000000006', 1 from dual union
+select '0000000007', 1 from dual union
+select '0000000008', 1 from dual union
+select '0000000009', 1 from dual union
+select '0000000010', 1 from dual union
+select '0000000011', 1 from dual union
+select '0000000012', 1 from dual union
+select '0000000013', 1 from dual union
+select '0000000014', 1 from dual union
+select '0000000015', 1 from dual union
+select '0000000016', 1 from dual union
+select '0000000017', 1 from dual union
+select '0000000018', 1 from dual union
+select '0000000019', 1 from dual union
+select '0000000021', 1 from dual union
+select '0000000022', 1 from dual union
+select '0000000023', 1 from dual union
+select '0000000024', 1 from dual union
+select '0000000025', 1 from dual union
+select '0000000026', 1 from dual union
+select '0000000027', 1 from dual union
+select '0000000028', 1 from dual union
+select '0000000029', 1 from dual union
+select '0000000030', 1 from dual union
+select '0000000031', 1 from dual;
