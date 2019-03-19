@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
  
     <groupId>com.grow.java8</groupId>
-    <artifactId>Calories</artifactId>
+    <artifactId>Tickets</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -87,45 +87,13 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-jdk8</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>4.3.17.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>2.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -137,173 +105,25 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>hibernate</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <activatedProperties>hibernate</activatedProperties>
-                <spring.profile>hibernate,db</spring.profile>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-core</artifactId>
-                    <version>5.2.4</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-jpa</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-jdbc</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                    <version>2.3.0</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration combine.self="override">
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <annotationProcessorPaths>
-                                <path>
-                                    <groupId>org.mapstruct</groupId>
-                                    <artifactId>mapstruct-processor</artifactId>
-                                    <version>${org.mapstruct.version}</version>
-                                </path>
-                            </annotationProcessorPaths>
-
-                            <excludes>
-                                <exclude>**/com/grow/java8/calories/json/**</exclude>
-                            </excludes>
-                            <testExcludes>
-                                <exclude>**/*JsonTest.java</exclude>
-                            </testExcludes>
-
-                            <compilerArgs>
-                                <compilerArg>-Amapstruct.suppressGeneratorTimestamp=true</compilerArg>
-                                <compilerArg>-Amapstruct.suppressGeneratorVersionInfoComment=true</compilerArg>
-                                <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources.hibernate</directory>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-
-        <profile>
-            <id>oracle</id>
-            <properties>
-                <activatedProperties>oracle</activatedProperties>
-            </properties>
-                      
-            <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>42.2.5</version>
-                </dependency>                <dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc6</artifactId>
-                    <version>11.2.0.4</version>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>h2</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <activatedProperties>h2</activatedProperties>
-            </properties>
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <scope>1.4.19</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>json</id>
-            <properties>
-                <activatedProperties>json</activatedProperties>
-                <spring.profile>json</spring.profile>
-            </properties>
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                    <version>2.9.5</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jsr310</artifactId>
-                    <version>2.9.0</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration combine.self="override">
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <annotationProcessorPaths>
-                                <path>
-                                    <groupId>org.mapstruct</groupId>
-                                    <artifactId>mapstruct-processor</artifactId>
-                                    <version>${org.mapstruct.version}</version>
-                                </path>
-                            </annotationProcessorPaths>
-
-                            <excludes>
-                                <exclude>**/com/grow/java8/calories/jpa/**</exclude>
-                                <exclude>**/com/grow/java8/tickets/**</exclude>
-                            </excludes>
-
-                            <compilerArgs>
-                                <compilerArg>-Amapstruct.suppressGeneratorTimestamp=true</compilerArg>
-                                <compilerArg>-Amapstruct.suppressGeneratorVersionInfoComment=true</compilerArg>
-                                <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-
-                <resources>
-                    <resource>
-                        <directory>src/main/resources.json</directory>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
@@ -340,39 +160,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-                <executions>
-                    <execution>
-                        <id>install-oracle-jdbc</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <groupId>com.oracle</groupId>
-                            <artifactId>ojdbc6</artifactId>
-                            <version>11.2.0.4</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
-                            <file>${project.basedir}/src/main/lib/ojdbc6.jar</file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources/config</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
