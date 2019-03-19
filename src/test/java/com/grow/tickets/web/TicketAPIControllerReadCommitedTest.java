@@ -40,7 +40,6 @@ class TicketAPIControllerReadCommitedTest extends TicketAPIControllerTest{
         assertThat(result.get(TimePoint.START), is(result.get(TimePoint.FINISH)));
     }
 
-
     @Test
     public void shouldRepeatebleRead() throws Exception {
         Map<TimePoint, Long> result = tryNonRepeatebleRead(ISOLATION_LEVEL);

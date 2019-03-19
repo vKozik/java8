@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EntityScan({"com.grow.java8.tickets"})
+@EntityScan({"com.grow.tickets"})
 @EnableTransactionManagement(proxyTargetClass=true)
 public class TicketsMain {
     public static void main(String[] args) {

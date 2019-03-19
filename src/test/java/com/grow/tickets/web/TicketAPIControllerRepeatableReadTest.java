@@ -15,7 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 @ExtendWith(SpringExtension.class)
