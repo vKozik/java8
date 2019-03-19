@@ -31,15 +31,15 @@ java -jar target/Tickets-0.0.1-SNAPSHOT.war
 
 ### Request examples
 
-#####Buy a ticket
+Buy a ticket
 http://localhost:8082/tickets/uncommited/buyTicket?buyer=buyerNamre
 
-#####Buy a ticket (and throw exception for "Dirty read" test )
+Buy a ticket (and throw exception for "Dirty read" test )
 http://localhost:8082/tickets/uncommited/buyTicket?buyer=exception
 
-#####Add a free ticket
+Add a free ticket
 http://localhost:8082/tickets/uncommited/addFree
 
-#####Number of tickets sold 
+Number of tickets sold 
 http://localhost:8082/tickets/uncommited/sold
 
